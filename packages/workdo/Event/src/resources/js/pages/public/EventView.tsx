@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 interface Event {
     id: number;
     name: string;
-    template_type: string;
+    event_type: string;
     template_config: any;
     config_sections: any;
     favicon?: string;
@@ -68,7 +68,7 @@ export default function EventView({ event }: Props) {
     
     // Generate dynamic QR text based on event type
     const getQrText = () => {
-        const eventType = event.template_type;
+        const eventType = event.event_type;
         switch (eventType) {
             case 'wedding':
                 return 'Scan the QR code to access about our wedding event.';
