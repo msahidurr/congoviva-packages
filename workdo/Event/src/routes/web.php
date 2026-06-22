@@ -36,6 +36,10 @@ Route::middleware(['web', 'auth', 'verified', 'plan.access'])->group(function ()
         ->middleware('permission:delete-event')
         ->name('event-qr-code.destroy');
     
+    Route::post('/event-qr-code/{id}/duplicate', [EventController::class, 'duplicate'])
+        ->middleware('permission:create-event')
+        ->name('event-qr-code.duplicate');
+    
     Route::get('/event-qr-code/{id}/analytics', [EventController::class, 'analytics'])
         ->middleware('permission:analytics-event')
         ->name('event-qr-code.analytics');
