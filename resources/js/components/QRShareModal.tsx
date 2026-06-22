@@ -16,9 +16,10 @@ interface QRShareModalProps {
   socialLinks?: any[];
   qrSize?: 'small' | 'medium' | 'large';
   forceOpen?: boolean;
+  qrText?: string;
 }
 
-export function QRShareModal({ isOpen, onClose, url, colors, font, socialLinks = [], qrSize = 'medium', forceOpen = false }: QRShareModalProps) {
+export function QRShareModal({ isOpen, onClose, url, colors, font, socialLinks = [], qrSize = 'medium', forceOpen = false, qrText }: QRShareModalProps) {
   const { t } = useTranslation();
   const [qrUrl, setQrUrl] = useState('');
   const [copied, setCopied] = useState(false);
@@ -259,7 +260,7 @@ export function QRShareModal({ isOpen, onClose, url, colors, font, socialLinks =
             className="text-sm mb-6" 
             style={{ color: modalText, opacity: 0.8, fontFamily: modalFont }}
           >
-            Scan this QR code to access my digital business card
+            {qrText || 'Scan this QR code to access my digital business card'}
           </p>
           
           <div className="relative">

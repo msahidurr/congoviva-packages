@@ -66,6 +66,25 @@ export default function EventView({ event }: Props) {
         };
     }, []);
     
+    // Generate dynamic QR text based on event type
+    const getQrText = () => {
+        const eventType = event.template_type;
+        switch (eventType) {
+            case 'wedding':
+                return 'Scan the QR code to access about our wedding event.';
+            case 'conference':
+                return 'Scan the QR code to access the conference event.';
+            case 'birthday':
+                return 'Scan the QR code to access the birthday event.';
+            case 'art-exhibition':
+                return 'Scan the QR code to access the art exhibition.';
+            case 'music-festival':
+                return 'Scan the QR code to access the music festival.';
+            default:
+                return 'Scan this QR code to access my digital event';
+        }
+    };
+    
 
     
     const seoConfig = event.config_sections?.seo;
@@ -180,6 +199,7 @@ export default function EventView({ event }: Props) {
                 font={event.config_sections?.font || 'Inter, sans-serif'}
                 qrSize={event.config_sections?.qr_share?.qr_size || 'medium'}
                 forceOpen={true}
+                qrText={getQrText()}
                 socialLinks={[
                     { platform: 'facebook', url: '#' },
                     { platform: 'twitter', url: '#' },
