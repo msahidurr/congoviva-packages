@@ -360,6 +360,41 @@ class EventController extends Controller
         return Inertia::render('Event/templates');
     }
 
+    public function duplicate($id)
+    {
+        $event = Event::findOrFail($id);
+        
+        if ($event->user_id != Auth::id()) {
+            abort(403);
+        }
+
+        // Find the next available duplicate name
+        $baseName = $event->name;
+        $newName = $baseName . ' (1)';
+        $counter = 1;
+        
+        while (Event::where('user_id', Auth::id())->where('name', $newName)->exists()) {
+            $counter++;
+            $newName = $baseName . ' (' . $counter . ')';
+        }
+
+        // Create duplicate event with all data
+        $duplicatedEvent = Event::create([
+            'user_id' => Auth::id(),
+            'name' => $newName,
+            'slug' => $this->generateUniqueSlug($newName),
+            'event_type' => $event->event_type,
+            'config_sections' => $event->config_sections,
+            'is_active' => $event->is_active
+        ]);
+
+        // Generate QR code for the new event
+        $this->generateQrCode($duplicatedEvent);
+
+        return redirect()->route('event-qr-code.index')
+            ->with('success', __('Event duplicated successfully.'));
+    }
+
     private function generateQrCode(Event $event)
     {
         try {

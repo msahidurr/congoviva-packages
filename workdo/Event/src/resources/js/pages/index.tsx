@@ -7,7 +7,7 @@ import { SearchAndFilterBar } from '@/components/ui/search-and-filter-bar';
 import { Card } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Edit, Trash2, Eye, Share2, MoreVertical, BarChart3, Calendar } from 'lucide-react';
+import { Plus, Edit, Trash2, Eye, Share2, MoreVertical, BarChart3, Calendar, Copy } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { CrudDeleteModal } from '@/components/CrudDeleteModal';
 import { toast } from '@/components/custom-toast';
@@ -145,6 +145,19 @@ export default function EventIndex({ events = { data: [] }, filters = {} }: Prop
     const url = `${window.appSettings.baseUrl}/event-qr/${event.slug}`;
     setShareUrl(url);
     setIsShareModalOpen(true);
+  };
+
+  const handleDuplicate = (event: Event) => {
+    toast.loading(t('Duplicating Event...'));
+    router.post(route('event-qr-code.duplicate', event.id), {}, {
+      onSuccess: () => {
+        toast.dismiss();
+      },
+      onError: (errors) => {
+        toast.dismiss();
+        toast.error(`Failed to duplicate: ${Object.values(errors).join(', ')}`);
+      }
+    });
   };
 
   const hasActiveFilters = () => searchTerm !== '';
@@ -345,6 +358,15 @@ export default function EventIndex({ events = { data: [] }, filters = {} }: Prop
                         
                         <Tooltip>
                           <TooltipTrigger asChild>
+                            <Button variant="ghost" size="icon" className="text-purple-500 hover:text-purple-700" onClick={() => handleDuplicate(event)}>
+                              <Copy className="h-4 w-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>{t("Duplicate")}</TooltipContent>
+                        </Tooltip>
+
+                        <Tooltip>
+                          <TooltipTrigger asChild>
                             <Link href={route('event-qr-code.edit', event.id)}>
                               <Button variant="ghost" size="icon" className="text-amber-500 hover:text-amber-700">
                                 <Edit className="h-4 w-4" />
@@ -424,6 +446,10 @@ export default function EventIndex({ events = { data: [] }, filters = {} }: Prop
                         <DropdownMenuItem onClick={() => router.get(route('event-qr-code.analytics', event.id))}>
                           <BarChart3 className="h-4 w-4 mr-2 text-green-500" />
                           <span>{t("Analytics")}</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handleDuplicate(event)}>
+                          <Copy className="h-4 w-4 mr-2 text-purple-500" />
+                          <span>{t("Duplicate")}</span>
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => handleDeleteClick(event)} className="text-red-600">
