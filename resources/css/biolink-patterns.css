@@ -1,0 +1,30 @@
+/* Bio Link Background Patterns */
+@keyframes patternMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+@keyframes businessPattern {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(50px, 50px) rotate(1deg); }
+}
+
+@keyframes techGrid {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(30px, 30px); }
+}
+
+@keyframes gamingCircuit {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(35px, 35px) rotate(2deg); }
+}
+
+@keyframes healthPattern {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(45px, 45px); }
+}
+
+@keyframes natureFlow {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(20px, 15px) rotate(1deg); }
+}

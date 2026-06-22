@@ -1,0 +1,53 @@
+/* Mobile Sidebar Fixes */
+@media (max-width: 767px) {
+    /* Ensure sidebar trigger is always visible */
+    [data-sidebar="trigger"] {
+        display: flex !important;
+        z-index: 50;
+    }
+    
+    /* Fix mobile sidebar content */
+    [data-mobile="true"] {
+        max-width: 280px !important;
+        width: 280px !important;
+    }
+    
+    /* Ensure menu items are properly sized */
+    [data-sidebar="menu-button"] {
+        min-height: 40px;
+        padding: 8px 12px;
+        width: 100%;
+    }
+    
+    /* Fix menu text truncation */
+    [data-sidebar="menu-button"] span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    }
+    
+    /* Ensure submenu items are visible */
+    [data-sidebar="menu-sub"] {
+        display: block !important;
+    }
+    
+    /* Fix sidebar content scrolling */
+    [data-sidebar="content"] {
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: calc(100vh - 120px);
+    }
+}
+
+/* Fix for very small screens */
+@media (max-width: 390px) {
+    [data-mobile="true"] {
+        max-width: 260px !important;
+        width: 260px !important;
+    }
+    
+    [data-sidebar="menu-button"] span {
+        max-width: 180px;
+    }
+}
