@@ -1,0 +1,10 @@
+{
+    "name": "Event",
+    "alias": "event",
+    "description": "Generate QR codes for events with RSVP tracking, calendar integration, and attendee management",
+    "priority": 0,
+    "version":1.4,
+    "monthly_price": 0,
+    "yearly_price": 0,
+    "package_name":"Event"
+}

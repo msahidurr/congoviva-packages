@@ -1,0 +1,10 @@
+{
+    "name": "Menu",
+    "alias": "menu",
+    "description": "Create professional digital menus with QR codes for restaurants, cafes, bars, and food establishments",
+    "priority": 0,
+    "version":1.2,
+    "monthly_price": 0,
+    "yearly_price": 0,
+    "package_name":"Menu"
+}

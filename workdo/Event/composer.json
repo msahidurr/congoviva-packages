@@ -1,0 +1,25 @@
+{
+    "name": "workdo/event",
+    "description": "Generate QR codes for events with RSVP tracking, calendar integration, and attendee management",
+    "type": "library",
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Workdo\\Event\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "WorkDo",
+            "email": "support@workdo.io"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Workdo\\Event\\Providers\\EventServiceProvider"
+            ]
+        }
+    }
+}
