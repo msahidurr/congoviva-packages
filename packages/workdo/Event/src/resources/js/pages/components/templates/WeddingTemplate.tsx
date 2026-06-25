@@ -32,9 +32,11 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
         return renderCeremony(sectionData);
       case 'reception':
         return renderReception(sectionData);
-      case 'wedding_party':
-        return renderWeddingParty(sectionData);
-      case 'rsvp':
+  case 'wedding_party':
+    return renderWeddingParty(sectionData);
+  case 'guests':
+    return renderGuests(sectionData);
+  case 'rsvp':
         return renderRsvp(sectionData);
       case 'registry':
         return renderRegistry(sectionData);
@@ -291,6 +293,52 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
                     {member.relationship}
                   </p>
                 )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderGuests = (guests: any) => {
+    if (!guests.guests_list || guests.guests_list.length === 0) return null;
+    return (
+      <div className="p-6">
+        <div className="bg-white rounded-3xl shadow-lg p-6">
+          <div className="text-center mb-6">
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: colors.primary + '15' }}>
+              <Users className="w-6 h-6" style={{ color: colors.primary }} />
+            </div>
+            <h3 className="text-2xl font-serif font-light" style={{ color: colors.primary }}>
+              {t('Guests')}
+            </h3>
+            <div className="flex items-center justify-center mt-3">
+              <div className="h-px w-8" style={{ backgroundColor: colors.secondary }}></div>
+              <div className="w-2 h-2 mx-3 rounded-full" style={{ backgroundColor: colors.secondary }}></div>
+              <div className="h-px w-8" style={{ backgroundColor: colors.secondary }}></div>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            {guests.guests_list.map((guest: any, index: number) => (
+              <div key={index} className="flex items-center gap-4 pb-4 border-b last:border-b-0" style={{ borderColor: colors.accent }}>
+                <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-serif flex-shrink-0" style={{ backgroundColor: colors.primary }}>
+                  {guest.first_name ? guest.first_name.charAt(0).toUpperCase() : 'G'}
+                </div>
+                <div className="flex-grow">
+                  <h4 className="text-sm font-medium" style={{ color: colors.text }}>
+                    {guest.first_name} {guest.last_name}
+                  </h4>
+                  <div className="flex gap-3 mt-1">
+                    <span className="text-xs font-light" style={{ color: colors.text }}>
+                      Table: <span className="font-medium" style={{ color: colors.primary }}>{guest.table}</span>
+                    </span>
+                    <span className="text-xs font-light" style={{ color: colors.text }}>
+                      Seat: <span className="font-medium" style={{ color: colors.primary }}>{guest.seat}</span>
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
