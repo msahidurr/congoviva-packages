@@ -61,7 +61,9 @@ export const weddingTemplate = {
           type: 'repeater',
           label: 'Guest List',
           fields: [
-            { name: 'name', type: 'text', label: 'Guest Name' },
+            { name: 'first_name', type: 'text', label: 'First Name' },
+            { name: 'last_name', type: 'text', label: 'Last Name' },
+            { name: 'relationship', type: 'text', label: 'Relationship' },
             { name: 'table', type: 'text', label: 'Table Number' },
             { name: 'seat', type: 'text', label: 'Seat Number' }
           ]
@@ -170,9 +172,9 @@ export const weddingTemplate = {
     },
     guests: {
       guests_list: [
-        { name: 'John Doe', table: '1', seat: 'A' },
-        { name: 'Jane Smith', table: '1', seat: 'B' },
-        { name: 'Robert Johnson', table: '2', seat: 'A' }
+        { first_name: 'John', last_name: 'Doe', relationship: 'Friend', table: '1', seat: 'A' },
+        { first_name: 'Jane', last_name: 'Smith', relationship: 'Cousin', table: '1', seat: 'B' },
+        { first_name: 'Robert', last_name: 'Johnson', relationship: 'Colleague', table: '2', seat: 'A' }
       ]
     },
     rsvp: {

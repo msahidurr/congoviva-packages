@@ -324,7 +324,9 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b-2" style={{ borderColor: colors.secondary }}>
-                  <th className="text-left py-3 px-4 font-semibold" style={{ color: colors.primary }}>Guest Name</th>
+                  <th className="text-left py-3 px-4 font-semibold" style={{ color: colors.primary }}>First Name</th>
+                  <th className="text-left py-3 px-4 font-semibold" style={{ color: colors.primary }}>Last Name</th>
+                  <th className="text-left py-3 px-4 font-semibold" style={{ color: colors.primary }}>Relationship</th>
                   <th className="text-center py-3 px-4 font-semibold" style={{ color: colors.primary }}>Table</th>
                   <th className="text-center py-3 px-4 font-semibold" style={{ color: colors.primary }}>Seat</th>
                 </tr>
@@ -332,7 +334,9 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
               <tbody>
                 {guests.guests_list.map((guest: any, index: number) => (
                   <tr key={index} className="border-b" style={{ borderColor: colors.accent }}>
-                    <td className="py-3 px-4" style={{ color: colors.text }}>{guest.name}</td>
+                    <td className="py-3 px-4" style={{ color: colors.text }}>{guest.first_name}</td>
+                    <td className="py-3 px-4" style={{ color: colors.text }}>{guest.last_name}</td>
+                    <td className="py-3 px-4" style={{ color: colors.text }}>{guest.relationship}</td>
                     <td className="py-3 px-4 text-center font-medium" style={{ color: colors.primary }}>{guest.table}</td>
                     <td className="py-3 px-4 text-center font-medium" style={{ color: colors.primary }}>{guest.seat}</td>
                   </tr>
