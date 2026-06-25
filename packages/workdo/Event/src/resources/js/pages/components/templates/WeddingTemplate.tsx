@@ -320,29 +320,29 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
             </div>
           </div>
           
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b-2" style={{ borderColor: colors.secondary }}>
-                  <th className="text-left py-3 px-4 font-semibold" style={{ color: colors.primary }}>First Name</th>
-                  <th className="text-left py-3 px-4 font-semibold" style={{ color: colors.primary }}>Last Name</th>
-                  <th className="text-left py-3 px-4 font-semibold" style={{ color: colors.primary }}>Relationship</th>
-                  <th className="text-center py-3 px-4 font-semibold" style={{ color: colors.primary }}>Table</th>
-                  <th className="text-center py-3 px-4 font-semibold" style={{ color: colors.primary }}>Seat</th>
-                </tr>
-              </thead>
-              <tbody>
-                {guests.guests_list.map((guest: any, index: number) => (
-                  <tr key={index} className="border-b" style={{ borderColor: colors.accent }}>
-                    <td className="py-3 px-4" style={{ color: colors.text }}>{guest.first_name}</td>
-                    <td className="py-3 px-4" style={{ color: colors.text }}>{guest.last_name}</td>
-                    <td className="py-3 px-4" style={{ color: colors.text }}>{guest.relationship}</td>
-                    <td className="py-3 px-4 text-center font-medium" style={{ color: colors.primary }}>{guest.table}</td>
-                    <td className="py-3 px-4 text-center font-medium" style={{ color: colors.primary }}>{guest.seat}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid grid-cols-2 gap-6">
+            {guests.guests_list.map((guest: any, index: number) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center text-white text-lg font-serif shadow-lg" style={{ backgroundColor: colors.primary }}>
+                  {guest.first_name ? guest.first_name.charAt(0).toUpperCase() : 'G'}
+                </div>
+                <h4 className="text-sm font-medium mb-1" style={{ color: colors.text }}>
+                  {guest.first_name} {guest.last_name}
+                </h4>
+                <p className="text-xs font-light" style={{ color: colors.secondary }}>
+                  {guest.relationship}
+                </p>
+                <div className="flex items-center justify-center gap-2 mt-2">
+                  <span className="text-xs font-light" style={{ color: colors.text }}>
+                    Table: <span className="font-medium" style={{ color: colors.primary }}>{guest.table}</span>
+                  </span>
+                  <span className="text-xs" style={{ color: colors.secondary }}>•</span>
+                  <span className="text-xs font-light" style={{ color: colors.text }}>
+                    Seat: <span className="font-medium" style={{ color: colors.primary }}>{guest.seat}</span>
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
