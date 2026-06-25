@@ -53,6 +53,23 @@ export const weddingTemplate = {
       required: false
     },
     {
+      key: 'guests',
+      name: 'Guests',
+      fields: [
+        {
+          name: 'guests_list',
+          type: 'repeater',
+          label: 'Guest List',
+          fields: [
+            { name: 'name', type: 'text', label: 'Guest Name' },
+            { name: 'table', type: 'text', label: 'Table Number' },
+            { name: 'seat', type: 'text', label: 'Seat Number' }
+          ]
+        }
+      ],
+      required: false
+    },
+    {
       key: 'rsvp',
       name: 'RSVP',
       fields: [
@@ -149,6 +166,13 @@ export const weddingTemplate = {
       bridal_party: [
         { name: 'Emma Johnson', role: 'Maid of Honor', relationship: 'Sister' },
         { name: 'David Smith', role: 'Best Man', relationship: 'Brother' }
+      ]
+    },
+    guests: {
+      guests_list: [
+        { name: 'John Doe', table: '1', seat: 'A' },
+        { name: 'Jane Smith', table: '1', seat: 'B' },
+        { name: 'Robert Johnson', table: '2', seat: 'A' }
       ]
     },
     rsvp: {
