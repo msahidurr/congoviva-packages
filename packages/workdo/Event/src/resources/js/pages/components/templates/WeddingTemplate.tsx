@@ -326,13 +326,10 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
                 <div className="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center text-white text-lg font-serif shadow-lg" style={{ backgroundColor: colors.primary }}>
                   {guest.first_name ? guest.first_name.charAt(0).toUpperCase() : 'G'}
                 </div>
-                <h4 className="text-sm font-medium mb-1" style={{ color: colors.text }}>
+                <h4 className="text-sm font-medium mb-3" style={{ color: colors.text }}>
                   {guest.first_name} {guest.last_name}
                 </h4>
-                <p className="text-xs font-light" style={{ color: colors.secondary }}>
-                  {guest.relationship}
-                </p>
-                <div className="flex items-center justify-center gap-2 mt-2">
+                <div className="flex items-center justify-center gap-2">
                   <span className="text-xs font-light" style={{ color: colors.text }}>
                     Table: <span className="font-medium" style={{ color: colors.primary }}>{guest.table}</span>
                   </span>
