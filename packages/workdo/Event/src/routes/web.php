@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Workdo\Event\Http\Controllers\EventController;
+use Workdo\Event\Http\Controllers\GuestCheckInController;
 
 Route::middleware(['web', 'auth', 'verified', 'plan.access'])->group(function () {
     Route::get('/event-qr-code', [EventController::class, 'index'])
@@ -47,6 +48,19 @@ Route::middleware(['web', 'auth', 'verified', 'plan.access'])->group(function ()
     Route::get('/event-qr-code/templates', [EventController::class, 'templates'])
         ->middleware('permission:manage-event')
         ->name('event-qr-code.templates');
+
+    // Guest Arrivals Admin API Routes
+    Route::get('/api/events/{id}/guest-arrivals', [GuestCheckInController::class, 'getGuestArrivals'])
+        ->middleware('permission:view-event')
+        ->name('guest-arrivals.index');
+
+    Route::post('/api/events/{id}/guest-arrivals/mark-arrived', [GuestCheckInController::class, 'markArrivedAdmin'])
+        ->middleware('permission:edit-event')
+        ->name('guest-arrivals.mark-arrived');
+
+    Route::post('/api/events/{id}/guest-arrivals/mark-not-arrived', [GuestCheckInController::class, 'markNotArrivedAdmin'])
+        ->middleware('permission:edit-event')
+        ->name('guest-arrivals.mark-not-arrived');
 });
 
 // Public route for Event QR Code view
@@ -60,3 +74,16 @@ Route::get('/event-qr-code/preview', [EventController::class, 'preview'])
 Route::get('/event/marketplace', [EventController::class, 'marketplace'])
     ->middleware('web')
     ->name('event.marketplace');
+
+// Public Guest Check-In Routes
+Route::get('/event/{slug}/check-in', [GuestCheckInController::class, 'showCheckInPage'])
+    ->middleware('web')
+    ->name('guest-check-in.show');
+
+Route::post('/event/{slug}/check-in', [GuestCheckInController::class, 'checkIn'])
+    ->middleware('web')
+    ->name('guest-check-in.store');
+
+Route::post('/event/{slug}/check-in/undo', [GuestCheckInController::class, 'undoCheckIn'])
+    ->middleware('web')
+    ->name('guest-check-in.undo');
