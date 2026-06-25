@@ -9,9 +9,10 @@ interface QRCodeModalProps {
   onClose: () => void;
   url: string;
   title: string;
+  qrText?: string;
 }
 
-export function QRCodeModal({ isOpen, onClose, url, title }: QRCodeModalProps) {
+export function QRCodeModal({ isOpen, onClose, url, title, qrText }: QRCodeModalProps) {
   const { t } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [qrUrl, setQrUrl] = useState('');
@@ -78,7 +79,7 @@ export function QRCodeModal({ isOpen, onClose, url, title }: QRCodeModalProps) {
             </div>
           )}
           <p className="mt-4 text-sm text-center text-muted-foreground">
-            {t('Scan this QR code to access the vCard')}
+            {qrText || t('Scan this QR code to access the vCard')}
           </p>
         </div>
         <DialogFooter className="flex flex-col sm:flex-row sm:justify-between gap-2">

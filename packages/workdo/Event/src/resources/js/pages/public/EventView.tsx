@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 interface Event {
     id: number;
     name: string;
-    template_type: string;
+    event_type: string;
     template_config: any;
     config_sections: any;
     favicon?: string;
@@ -65,6 +65,25 @@ export default function EventView({ event }: Props) {
             window.removeEventListener('openQrModal', handleOpenQrModal);
         };
     }, []);
+    
+    // Generate dynamic QR text based on event type
+    const getQrText = () => {
+        const eventType = event.event_type;
+        switch (eventType) {
+            case 'wedding':
+                return 'Scan the QR code to access about our wedding event.';
+            case 'conference':
+                return 'Scan the QR code to access the conference event.';
+            case 'birthday':
+                return 'Scan the QR code to access the birthday event.';
+            case 'art-exhibition':
+                return 'Scan the QR code to access the art exhibition.';
+            case 'music-festival':
+                return 'Scan the QR code to access the music festival.';
+            default:
+                return 'Scan this QR code to access my digital event';
+        }
+    };
     
 
     
@@ -180,6 +199,7 @@ export default function EventView({ event }: Props) {
                 font={event.config_sections?.font || 'Inter, sans-serif'}
                 qrSize={event.config_sections?.qr_share?.qr_size || 'medium'}
                 forceOpen={true}
+                qrText={getQrText()}
                 socialLinks={[
                     { platform: 'facebook', url: '#' },
                     { platform: 'twitter', url: '#' },
