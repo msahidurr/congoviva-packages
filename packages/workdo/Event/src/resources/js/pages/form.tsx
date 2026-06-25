@@ -14,6 +14,8 @@ import MediaPicker from '@/components/MediaPicker';
 import { eventTemplates, eventTypeOptions, getEventTemplate } from './event-templates';
 import EventPreview from './components/EventPreview';
 import EventSectionManager from './components/EventSectionManager';
+import GuestArrivalStats from './components/GuestArrivalStats';
+import GuestArrivalTable from './components/GuestArrivalTable';
 
 interface Event {
   id: number;
@@ -34,6 +36,8 @@ export default function EventQrCodeForm({ event, userPlan, planFeatures, userRol
   const { t } = useTranslation();
   const isEdit = !!event;
   const [eventType, setEventType] = React.useState(event?.event_type || 'conference');
+  const [guestArrivals, setGuestArrivals] = React.useState<any>(null);
+  const [arrivalsLoading, setArrivalsLoading] = React.useState(false);
 
   const template = getEventTemplate(eventType);
   const isSuperAdmin = userRole === 'superadmin';
@@ -60,6 +64,24 @@ export default function EventQrCodeForm({ event, userPlan, planFeatures, userRol
       });
     }
   }, [errors]);
+
+  // Fetch guest arrivals when editing
+  React.useEffect(() => {
+    if (isEdit && event?.id) {
+      setArrivalsLoading(true);
+      fetch(`/api/events/${event.id}/guest-arrivals`)
+        .then(res => res.json())
+        .then(data => {
+          setGuestArrivals(data);
+        })
+        .catch(err => {
+          console.error('[v0] Error fetching guest arrivals:', err);
+        })
+        .finally(() => {
+          setArrivalsLoading(false);
+        });
+    }
+  }, [isEdit, event?.id]);
 
   const handleEventTypeChange = (newType: string) => {
     setEventType(newType);
@@ -345,6 +367,40 @@ export default function EventQrCodeForm({ event, userPlan, planFeatures, userRol
               />
             </div>
           </Card>
+
+          {/* Guest Arrivals Section - Only show when editing */}
+          {isEdit && (
+            <Card>
+              <div className="p-3 border-b bg-muted/30">
+                <h3 className="text-base font-medium"><span className="bg-gray-100 dark:bg-gray-700 text-xs rounded-full h-5 w-5 inline-flex items-center justify-center mr-1.5">3</span>{t("Guest Arrivals")}</h3>
+              </div>
+              <div className="p-6">
+                {arrivalsLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin inline-flex items-center justify-center w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full"></div>
+                    <span className="ml-2 text-sm text-gray-600">{t('Loading guest arrivals...')}</span>
+                  </div>
+                ) : guestArrivals ? (
+                  <>
+                    <GuestArrivalStats
+                      total={guestArrivals.stats?.total || 0}
+                      arrived={guestArrivals.stats?.arrived || 0}
+                      pending={guestArrivals.stats?.pending || 0}
+                    />
+                    <GuestArrivalTable
+                      guests={guestArrivals.guests || []}
+                      eventId={event.id}
+                      isLoading={false}
+                    />
+                  </>
+                ) : (
+                  <div className="p-8 text-center">
+                    <p className="text-gray-500">{t('No guest data available')}</p>
+                  </div>
+                )}
+              </div>
+            </Card>
+          )}
         </div>
         
         <div className="lg:col-span-1">

@@ -38,6 +38,11 @@ class Event extends Model
         return $this->hasMany(EventAnalytics::class);
     }
 
+    public function guestArrivals()
+    {
+        return $this->hasMany(GuestArrival::class);
+    }
+
     public function getEventUrlAttribute()
     {
         return url("/event-qr/{$this->slug}");

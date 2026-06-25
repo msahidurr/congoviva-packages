@@ -321,26 +321,40 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
           </div>
           
           <div className="space-y-4">
-            {guests.guests_list.map((guest: any, index: number) => (
-              <div key={index} className="flex items-center gap-4 pb-4 border-b last:border-b-0" style={{ borderColor: colors.accent }}>
-                <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-serif flex-shrink-0" style={{ backgroundColor: colors.primary }}>
-                  {guest.first_name ? guest.first_name.charAt(0).toUpperCase() : 'G'}
-                </div>
-                <div className="flex-grow">
-                  <h4 className="text-sm font-medium" style={{ color: colors.text }}>
-                    {guest.first_name} {guest.last_name}
-                  </h4>
-                  <div className="flex gap-3 mt-1">
-                    <span className="text-xs font-light" style={{ color: colors.text }}>
-                      Table: <span className="font-medium" style={{ color: colors.primary }}>{guest.table}</span>
-                    </span>
-                    <span className="text-xs font-light" style={{ color: colors.text }}>
-                      Seat: <span className="font-medium" style={{ color: colors.primary }}>{guest.seat}</span>
-                    </span>
+            {guests.guests_list.map((guest: any, index: number) => {
+              const guestArrival = guests.arrivals?.[`${guest.first_name}|${guest.last_name}|${guest.table}`];
+              const isArrived = guestArrival?.arrived_at !== null && guestArrival?.arrived_at !== undefined;
+              
+              return (
+                <div key={index} className="flex items-center gap-4 pb-4 border-b last:border-b-0" style={{ borderColor: colors.accent }}>
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-serif flex-shrink-0" style={{ backgroundColor: colors.primary }}>
+                    {guest.first_name ? guest.first_name.charAt(0).toUpperCase() : 'G'}
+                  </div>
+                  <div className="flex-grow">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="text-sm font-medium" style={{ color: colors.text }}>
+                        {guest.first_name} {guest.last_name}
+                      </h4>
+                      {isArrived && (
+                        <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                          <svg className="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex gap-3 mt-1">
+                      <span className="text-xs font-light" style={{ color: colors.text }}>
+                        Table: <span className="font-medium" style={{ color: colors.primary }}>{guest.table}</span>
+                      </span>
+                      <span className="text-xs font-light" style={{ color: colors.text }}>
+                        Seat: <span className="font-medium" style={{ color: colors.primary }}>{guest.seat}</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
