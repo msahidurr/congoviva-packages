@@ -945,8 +945,6 @@ if (! function_exists('handlePaymentError')) {
     }
 }
 
-
-
 if (! function_exists('defaultSettings')) {
     /**
      * Get default settings for System, Brand, Storage, and Currency configurations
@@ -963,8 +961,8 @@ if (! function_exists('defaultSettings')) {
             'calendarStartDay' => 'sunday',
             'defaultTimezone' => 'UTC',
             'emailVerification' => false,
-            'landingPageEnabled' => true,
-            'registrationEnabled' => true,
+            'landingPageEnabled' => false,
+            'registrationEnabled' => false,
             
             // Brand Settings
             'logoDark' => 'images/logos/logo-dark.png',
