@@ -325,7 +325,7 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
               <thead>
                 <tr style={{ backgroundColor: colors.primary + '10' }}>
                   <th className="px-4 py-3 text-left font-semibold border-b-2" style={{ borderColor: colors.primary, color: colors.primary }}>
-                    {t('No')}
+                    #
                   </th>
                   <th className="px-4 py-3 text-left font-semibold border-b-2" style={{ borderColor: colors.primary, color: colors.primary }}>
                     {t('Name')}
