@@ -305,7 +305,7 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
     if (!guests.guests_list || guests.guests_list.length === 0) return null;
     return (
       <div className="p-6">
-        <div className="bg-white rounded-3xl shadow-lg p-6">
+        <div className="bg-white rounded-3xl shadow-lg p-6 overflow-x-auto">
           <div className="text-center mb-6">
             <div className="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style={{ backgroundColor: colors.primary + '15' }}>
               <Users className="w-6 h-6" style={{ color: colors.primary }} />
@@ -320,27 +320,47 @@ export default function WeddingTemplate({ data, template }: WeddingTemplateProps
             </div>
           </div>
           
-          <div className="space-y-4">
-            {guests.guests_list.map((guest: any, index: number) => (
-              <div key={index} className="flex items-center gap-4 pb-4 border-b last:border-b-0" style={{ borderColor: colors.accent }}>
-                <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-serif flex-shrink-0" style={{ backgroundColor: colors.primary }}>
-                  {guest.first_name ? guest.first_name.charAt(0).toUpperCase() : 'G'}
-                </div>
-                <div className="flex-grow">
-                  <h4 className="text-sm font-medium" style={{ color: colors.text }}>
-                    {guest.first_name} {guest.last_name}
-                  </h4>
-                  <div className="flex gap-3 mt-1">
-                    <span className="text-xs font-light" style={{ color: colors.text }}>
-                      Table: <span className="font-medium" style={{ color: colors.primary }}>{guest.table}</span>
-                    </span>
-                    <span className="text-xs font-light" style={{ color: colors.text }}>
-                      Seat: <span className="font-medium" style={{ color: colors.primary }}>{guest.seat}</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr style={{ backgroundColor: colors.primary + '10' }}>
+                  <th className="px-4 py-3 text-left font-semibold border-b-2" style={{ borderColor: colors.primary, color: colors.primary }}>
+                    #
+                  </th>
+                  <th className="px-4 py-3 text-left font-semibold border-b-2" style={{ borderColor: colors.primary, color: colors.primary }}>
+                    {t('Name')}
+                  </th>
+                  <th className="px-4 py-3 text-center font-semibold border-b-2" style={{ borderColor: colors.primary, color: colors.primary }}>
+                    {t('Table')}
+                  </th>
+                  <th className="px-4 py-3 text-center font-semibold border-b-2" style={{ borderColor: colors.primary, color: colors.primary }}>
+                    {t('Seat')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {guests.guests_list.map((guest: any, index: number) => (
+                  <tr key={index} className="border-b hover:bg-opacity-50 transition-colors" style={{ borderColor: colors.accent, backgroundColor: index % 2 === 0 ? colors.accent + '20' : 'transparent' }}>
+                    <td className="px-4 py-3 font-medium" style={{ color: colors.primary }}>
+                      {index + 1}
+                    </td>
+                    <td className="px-4 py-3" style={{ color: colors.text }}>
+                      {guest.first_name} {guest.last_name}
+                    </td>
+                    <td className="px-4 py-3 text-center font-medium" style={{ color: colors.primary }}>
+                      {guest.table}
+                    </td>
+                    <td className="px-4 py-3 text-center font-medium" style={{ color: colors.primary }}>
+                      {guest.seat}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          
+          <div className="mt-4 text-xs text-center" style={{ color: colors.text + '80' }}>
+            {t('Total Guests')}: {guests.guests_list.length}
           </div>
         </div>
       </div>
